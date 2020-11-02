@@ -1,0 +1,28 @@
+<h3 class="mt-5 mb-3">Your search result</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">app_id</th>
+      <th scope="col">name</th>
+      <th scope="col">category</th>
+      <th scope="col">rating</th>
+      <th scope="col">installs</th>
+    </tr>
+  </thead>
+  <tbody>
+{{#if recs}}
+{{#each recs }}
+    <tr>
+      <td>{{this.app_id}}</td>
+      <td>{{this.name}}</td>
+      <td>{{this.category}}</td>
+      <td>{{this.rating}}</td>
+      <td>{{this.installs}}</td>
+    </tr>
+{{/each}}
+{{else}}
+<h4>There are no results for your search</h4>
+{{/if}}
+  </tbody>
+</table>
