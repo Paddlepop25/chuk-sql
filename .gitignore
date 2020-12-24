@@ -1,3 +1,4 @@
 node_modules
-elisemain.js
-eliseresults.hbs
+emain.js
+e.hbs
+.env

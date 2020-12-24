@@ -21,17 +21,27 @@
     </tr>
     {{/each}}
 
-    {{!-- form should submit the  --}}
-    <form method="GET" , action="/search">
-      <div class="d-flex justify-content-center mb-3">
-        <input type="hidden" name="search" value={{q}}>
-        <button class="btn btn-success mr-3" name="previous" value="previous5">Previous</button>
-        <button class="btn btn-danger" name="next" value="next5">Next</button>
-      </div>
-    </form>
+    {{!--
+    IMPORTANT: the button's name + value will be the url's query (search=q)
+    http://localhost:3000/search/page1?search=princess
+    --}}
+
+    <div class="d-flex justify-content-center mb-3">
+      {{#if hasPrevPage}}
+      <form method="GET" , action="/search/page{{prevPage}}">
+        <button type="submit" class="btn btn-success mr-3" name="search" value={{q}}>◀️ Previous</button>
+      </form>
+      {{/if}}
+
+      {{#if hasNextPage}}
+      <form method="GET" , action="/search/page{{nextPage}}">
+        <button type="submit" class="btn btn-danger" name="search" value={{q}}>Next ▶️</button>
+      </form>
+      {{/if}}
+    </div>
 
   </tbody>
 </table>
 {{else}}
-<h4>There are no results for your search</h4>
+<h4>There are no results for "{{q}}"</h4>
 {{/if}}
