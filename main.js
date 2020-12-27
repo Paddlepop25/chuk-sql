@@ -12,8 +12,6 @@ require('dotenv').config()
 const SQL_FIND_BY_NAME = 'select * from apps where name like ? limit ?,?'
 const SQL_RESULT_COUNT = 'select count(*) as count from apps where name like ?'
 
-// const SQL_NUMBER_OF_SEARCHES = 'select COUNT(*) from apps where appid like ? limit ?'
-
 // configure PORT
 const PORT = parseInt(process.argv[2]) || parseInt(process.env.PORT) || 3000
 
@@ -77,17 +75,6 @@ app.get('/search/page:page', async (req, res) => {
   const q = req.query['search']
   console.info('search term ---> ', q) // search
 
-  // const minusOffset = req.query['previous'] //querying 'previous' button with name='previous' and value will be returned
-  // // console.info('minusOffset --->', minusOffset) //undefined
-  // const addOffset = req.query['next'] //querying 'next' button with name='next and value will be returned
-  // // console.info('addOffset --->', addOffset) //undefined
-
-  // if (minusOffset === 'previousPage') {
-  //   offset -= 5
-  // } else if (addOffset === 'nextPage') {
-  //   offset += 5
-  // }
-
   // acquire a connection from the pool
   const conn = await pool.getConnection()
 
@@ -110,7 +97,7 @@ app.get('/search/page:page', async (req, res) => {
     const SQL_FIND_BY_NAME = 'select * from apps where name like ? limit ?'
     2nd parameter is array of the ? above
     query returns a promise. return an array of 2 elements
-    1st element will hold array of 10 records. 
+    1st element will hold array of results. 
     2nd element is the metadata on the record, usually we don't need to look at it. so result[0]
     */
     const result = await conn.query(SQL_FIND_BY_NAME, [`%${q}%`, offset, limit])
